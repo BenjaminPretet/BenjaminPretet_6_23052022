@@ -1,9 +1,8 @@
-const Thing = require('../models/sauces')
+const sauces = require('../models/sauces')
 const fs = require('fs');
-const sauces = require('../models/sauces');
 
 exports.createSauce = (req, res, next) => {
-  const saucesObject = JSON.parse(req.body.thing);
+  const saucesObject = JSON.parse(req.body.sauces);
   delete saucesObject._id;
   const sauces = new Sauces({
     ...saucesObject,
