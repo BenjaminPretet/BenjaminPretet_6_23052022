@@ -3,7 +3,7 @@ const router = express.Router();
 
 const auth = require('../middleware/auth');
 
-const stuffCtrl = require('../controllers/sauces');
+const saucesCtrl = require('../controllers/sauces');
 
 router.post('/', auth, multer, saucesCtrl.createSauces);
 router.put('/:id', auth, multer, saucesCtrl.modifySauces);
