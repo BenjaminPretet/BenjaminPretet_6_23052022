@@ -4,7 +4,7 @@ const fs = require('fs');
 exports.createSauce = (req, res, next) => {
   const saucesObject = JSON.parse(req.body.sauces);
   delete saucesObject._id;
-  const sauces = new Sauces({
+  const sauces = new sauces({
     ...saucesObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
@@ -13,7 +13,7 @@ exports.createSauce = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
-exports.modifySauces = (req, res, next) => {
+exports.modifySauce = (req, res, next) => {
   const saucesObject = req.file ?
     {
       ...JSON.parse(req.body.sauces),
@@ -24,7 +24,7 @@ exports.modifySauces = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
-exports.deleteSauces = (req, res, next) => {
+exports.deleteSauce = (req, res, next) => {
   sauces.findOne({ _id: req.params.id })
     .then(sauces => {
       const filename = sauces.imageUrl.split('/images/')[1];
@@ -37,7 +37,7 @@ exports.deleteSauces = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-exports.getOneSauces = (req, res, next) => {
+exports.getOneSauce = (req, res, next) => {
     sauces.findOne({ _id: req.params.id })
       .then(sauces => res.status(200).json(sauces))
       .catch(error => res.status(404).json({ error }));
