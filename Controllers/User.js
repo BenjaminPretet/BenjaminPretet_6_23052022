@@ -1,12 +1,13 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const sha256 = require('crypto-js/sha256')
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
-          email: req.body.email,
+          email: sha256(req.body.email).toString(),
           password: hash
         });
         user.save()
@@ -17,7 +18,7 @@ exports.signup = (req, res, next) => {
 };;
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: sha256(req.body.email).toString() })
     .then(user => {
       if (!user) {
         return res.status(404).json({ error: 'Identifiants incorrects !' });
