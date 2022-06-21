@@ -33,7 +33,6 @@ exports.addLikeOrDislike = (req, res, next) => {
       let usersLikedFound = sauceFound.usersLiked.includes(req.body.userId);
 
       if(usersLikedFound){
-        console.log("coucou");
         sauce.updateOne(
           { _id: req.params.id },
           {
